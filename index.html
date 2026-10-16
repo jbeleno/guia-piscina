@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de piscina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F8F9; --grid:#DCEBEF; --card:#FFFFFF; --line:#CFE2E8;
+    --ink:#0F2233; --muted:#3F5566; --navy:#13324A;
+    --accent:#FF6B2C; --accent-ink:#B83D0B; --water:#D3ECF2; --cap:#FFC93C;
+    --warn-bg:#FDEBE3; --warn-ink:#7A2A0A;
+    --info-bg:#E4F2F6; --info-ink:#0F3B52;
+    --note-bg:#FFF4D6; --note-ink:#5C4300;
+    --sans:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --cond:"Barlow Condensed","Barlow",system-ui,sans-serif;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--ink);line-height:1.5;padding:18px 16px 60px;
+    background-color:var(--bg);
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:24px 24px}
+  .wrap{max-width:680px;margin:0 auto}
+
+  /* figura: colores del personaje */
+  .nr{color:#2E4B63;--hl:#557895}
+  .fr{color:#A9BCC8;--hl:#A9BCC8}
+
+  header{margin-bottom:22px}
+  .kicker{font-size:12px;font-weight:700;color:var(--accent-ink);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+  h1{font-family:var(--cond);font-size:clamp(40px,10vw,60px);font-weight:800;line-height:.95;text-transform:uppercase;letter-spacing:.005em}
+  .sub{color:var(--muted);font-size:16px;font-weight:500;margin-top:10px;max-width:54ch}
+  .lane{display:flex;align-items:center;height:18px;margin:18px 0 0}
+  .lane i{flex:1;height:8px;background:var(--navy);border-radius:2px}
+  .lane b{width:8px;height:18px;background:var(--navy);border-radius:2px}
+
+  .rule{background:var(--navy);color:#E6EEF3;border-radius:16px;padding:18px;margin-top:18px}
+  .rule h2{font-family:var(--cond);font-size:20px;font-weight:800;color:var(--cap);letter-spacing:.03em;margin-bottom:8px}
+  .rule p{font-size:15px;line-height:1.55;color:#D3DFE7}
+  .rule p + p{margin-top:9px}
+  .rule strong{color:#fff}
+  .rule .no{color:#FFB48F;font-weight:700}
+
+  nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  nav a{font-family:var(--cond);font-size:17px;font-weight:700;text-transform:uppercase;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 14px;min-height:44px;display:inline-flex;align-items:center}
+  nav a:hover{border-color:var(--navy)}
+  nav a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+  .block{margin-top:46px;scroll-margin-top:14px}
+  .block-head{display:flex;align-items:center;gap:13px;margin-bottom:6px}
+  .block-num{flex:0 0 auto;width:44px;height:44px;border-radius:10px;background:var(--navy);color:#fff;font-family:var(--cond);font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .block-num.water{background:#1F6F8B}
+  .block-head h3{font-family:var(--cond);font-size:32px;font-weight:800;text-transform:uppercase;line-height:1}
+  .block-head .meta{font-size:13.5px;font-weight:700;color:var(--muted);margin-top:3px}
+  .block-note{color:var(--muted);font-size:15px;margin:10px 0 16px;max-width:58ch}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:14px}
+  .fig{background:#fff;border-bottom:1px solid var(--line);display:flex;justify-content:center}
+  .fig svg{display:block;width:100%;height:auto}
+  .fig.std svg{max-height:270px}
+  .fig.top svg{max-height:200px}
+  .fig.low svg{max-height:190px}
+
+  .body{padding:15px 16px 17px}
+  .name-row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+  .idx{font-size:12px;font-weight:700;color:var(--accent-ink);letter-spacing:.08em;margin-bottom:2px}
+  .name{font-family:var(--cond);font-size:24px;font-weight:800;text-transform:uppercase;line-height:1.05}
+  .target{font-size:13.5px;color:var(--muted);font-weight:600;margin-top:3px}
+  .dose{font-family:var(--cond);font-size:20px;font-weight:800;color:#fff;background:var(--navy);border-radius:8px;padding:5px 12px;white-space:nowrap;line-height:1.1}
+  .h{font-size:12px;font-weight:700;color:var(--accent-ink);letter-spacing:.08em;margin:16px 0 8px}
+  ol.steps{padding-left:0;list-style:none;counter-reset:s}
+  ol.steps li{position:relative;padding-left:28px;margin-bottom:7px;font-size:15px}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:2px;width:20px;height:20px;border-radius:6px;background:var(--navy);color:#fff;font-family:var(--cond);font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  ul.plain{list-style:none;padding:0}
+  ul.plain li{position:relative;padding-left:22px;margin-bottom:7px;font-size:15px}
+  ul.plain li::before{content:"";position:absolute;left:3px;top:8px;width:9px;height:9px;border-radius:2px;background:var(--accent)}
+
+  .flag{background:var(--warn-bg);border-radius:12px;padding:12px 14px;margin-top:13px;font-size:14.5px;color:var(--warn-ink);display:flex;gap:10px}
+  .flag b{color:var(--warn-ink)}
+  .flag .ic{flex:0 0 auto;font-family:var(--cond);font-weight:800;font-size:18px;line-height:1.2;color:var(--accent-ink)}
+  .tip{background:var(--info-bg);border-radius:12px;padding:12px 14px;margin-top:12px;font-size:14.5px;color:var(--info-ink)}
+  .note{background:var(--note-bg);border-radius:12px;padding:13px 15px;margin-top:14px;font-size:14.5px;color:var(--note-ink)}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:14.5px}
+  th{background:var(--navy);color:#fff;text-align:left;padding:10px 12px;font-family:var(--cond);font-size:16px;font-weight:700;text-transform:uppercase}
+  td{padding:11px 12px;border-top:1px solid var(--line);vertical-align:top}
+  td.n{font-family:var(--cond);font-size:19px;font-weight:800;width:56px}
+  .goal td{background:var(--note-bg);font-weight:700}
+
+  .cyclebar{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 16px;margin-bottom:16px}
+  .cyclerow{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
+  .cyclerow:last-child{border-bottom:0}
+  .cyclerow .n{flex:0 0 auto;width:26px;height:26px;border-radius:7px;background:#1F6F8B;color:#fff;font-family:var(--cond);font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .cyclerow .what{flex:1;font-weight:700}
+  .cyclerow .amt{font-family:var(--cond);font-weight:800;font-size:20px;color:var(--navy)}
+  .cycletotal{margin-top:10px;padding-top:11px;border-top:2px solid var(--navy);font-size:14.5px;font-weight:700}
+
+  footer{margin-top:46px;text-align:center;color:var(--muted);font-size:13.5px;line-height:1.7}
+
+  /* animaciones que no dependen del ritmo del cuerpo */
+  .wave{animation:drift 3.2s linear infinite}
+  @keyframes drift{from{transform:translateX(0)}to{transform:translateX(56px)}}
+  .bub{animation:bub 1.8s ease-out infinite;opacity:0}
+  .bub.b2{animation-delay:.6s}.bub.b3{animation-delay:1.2s}
+  @keyframes bub{0%{opacity:0;transform:translate(0,0)}15%{opacity:.9}100%{opacity:0;transform:translate(22px,-30px)}}
+  .bob{animation:bob .45s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(1.5px)}}
+  .glow{animation:breath 5s ease-in-out infinite}
+  @keyframes breath{0%,100%{opacity:.22}50%{opacity:.65}}
+  .chest{animation:chest 5s ease-in-out infinite}
+  @keyframes chest{0%,100%{transform:scale(1)}50%{transform:scale(1.012)}}
+  .push{animation:push 5s ease-in-out infinite}
+  @keyframes push{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}
+  .ring{animation:hold 30s linear infinite}
+  @keyframes hold{from{stroke-dashoffset:163}to{stroke-dashoffset:0}}
+  .lb{transition:opacity .18s}
+  @media (prefers-reduced-motion:reduce){
+    .wave,.bub,.bob,.glow,.chest,.push,.ring{animation:none}
+    .glow{opacity:.5}
+  }
+</style>
+</head>
+<body>
+
+<!-- Piezas del personaje: cada segmento apunta hacia +x desde su articulación -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<defs>
+  <g id="thigh">
+    <path d="M-8 -14 C14 -17 46 -13 81 -8 L81 8 C52 12 26 16 -4 15 C-14 11 -16 -8 -8 -14 Z" fill="currentColor"/>
+    <path d="M-4 -12 C18 -15 48 -11 78 -7 C50 -8.5 20 -9.5 -4 -12 Z" style="fill:var(--hl)"/>
+    <path d="M6 4 C24 15 56 12 77 5 C56 8 28 8 6 4 Z" style="fill:var(--mq,none)"/>
+    <path d="M6 -5 C24 -15 56 -12 77 -6 C56 -8 28 -8 6 -5 Z" style="fill:var(--mi,none)"/>
+    <circle cx="81" cy="0" r="8" fill="currentColor"/>
+  </g>
+  <g id="shin">
+    <path d="M-2 -8 C12 -14 30 -13 46 -7 C60 -5 72 -4.5 81 -4 L81 4 C64 5 34 6.5 -2 8 Z" fill="currentColor"/>
+    <path d="M2 -9 C14 -13 30 -12 42 -7.5 C30 -9 16 -9.5 2 -9 Z" style="fill:var(--hl)"/>
+    <path d="M2 -8 C14 -15 30 -14 44 -8 C30 -6 16 -5.5 2 -6 Z" style="fill:var(--mc,none)"/>
+    <circle cx="81" cy="0" r="4.5" fill="currentColor"/>
+  </g>
+  <path id="footP" d="M-5 -4.5 C6 -6 20 -4 33 -1 C36 0 36 3 33 4 C22 6 8 7 -5 4.5 Z" fill="currentColor"/>
+  <path id="footF" d="M-10 -4 C-10 -8 -4 -8 0 -7 C10 -7 22 -5 32 -2 C35 0 35 3 32 4 C20 5 6 6 -6 6 C-10 5 -11 0 -10 -4 Z" fill="currentColor"/>
+  <!-- brazo "N": flexiona hacia +y · brazo "M": flexiona hacia -y (espejo) -->
+  <g id="uarmN">
+    <path d="M-8 -12 C10 -14 30 -9 61 -6 L61 6 C36 8 12 11 -8 11 C-15 6 -15 -7 -8 -12 Z" fill="currentColor"/>
+    <path d="M-4 -11 C12 -13 32 -9 58 -5.5 C34 -7 14 -9 -4 -11 Z" style="fill:var(--hl)"/>
+    <path d="M-8 -11 C2 -13 14 -12 24 -8 C14 -2 2 4 -8 6 C-13 2 -13 -6 -8 -11 Z" style="fill:var(--md,none)"/>
+    <circle cx="61" cy="0" r="6" fill="currentColor"/>
+  </g>
+  <g id="uarmM">
+    <path d="M-8 12 C10 14 30 9 61 6 L61 -6 C36 -8 12 -11 -8 -11 C-15 -6 -15 7 -8 12 Z" fill="currentColor"/>
+    <path d="M-4 11 C12 13 32 9 58 5.5 C34 7 14 9 -4 11 Z" style="fill:var(--hl)"/>
+    <path d="M-8 11 C2 13 14 12 24 8 C14 2 2 -4 -8 -6 C-13 -2 -13 6 -8 11 Z" style="fill:var(--md,none)"/>
+    <path d="M18 9 C30 10 44 8 58 5.5 C44 4 30 4 18 5 Z" style="fill:var(--mt,none)"/>
+    <circle cx="61" cy="0" r="6" fill="currentColor"/>
+  </g>
+  <g id="farmN">
+    <path d="M0 -7 C14 -8.5 28 -7 48 -4.5 L48 4.5 C30 6 14 7.5 0 7 Z" fill="currentColor"/>
+    <path d="M2 -6.5 C16 -8 30 -6.5 46 -4 C30 -5 16 -5.5 2 -6.5 Z" style="fill:var(--hl)"/>
+    <circle cx="48" cy="0" r="4.5" fill="currentColor"/>
+  </g>
+  <g id="farmM">
+    <path d="M0 7 C14 8.5 28 7 48 4.5 L48 -4.5 C30 -6 14 -7.5 0 -7 Z" fill="currentColor"/>
+    <path d="M2 6.5 C16 8 30 6.5 46 4 C30 5 16 5.5 2 6.5 Z" style="fill:var(--hl)"/>
+    <circle cx="48" cy="0" r="4.5" fill="currentColor"/>
+  </g>
+  <g id="handN">
+    <path d="M-2 -5 C10 -6 22 -5 29 -2 C32 0 32 2 29 3.5 C20 5.5 10 6 -2 5 Z" fill="currentColor"/>
+    <path d="M4 4 C9 7 14 8 17 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g id="handM">
+    <path d="M-2 5 C10 6 22 5 29 2 C32 0 32 -2 29 -3.5 C20 -5.5 10 -6 -2 -5 Z" fill="currentColor"/>
+    <path d="M4 -4 C9 -7 14 -8 17 -7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <!-- de pie, mirando a la izquierda; origen = cadera -->
+  <g id="torsoS">
+    <path d="M-8 -104 L-8 -122 C-2 -124 6 -124 8 -120 L10 -104 Z" fill="currentColor"/>
+    <path d="M-14 -104 C-20 -88 -22 -70 -18 -56 C-14 -44 -12 -32 -13 -20 C-14 -8 -12 4 -6 10 L14 10 C24 6 26 -6 22 -16 C18 -26 16 -40 18 -56 C20 -72 18 -92 12 -104 C4 -110 -8 -110 -14 -104 Z" fill="currentColor"/>
+    <path d="M12 -102 C18 -92 20 -72 17 -56 C15 -44 16 -30 20 -18 C14 -30 12 -44 13 -56 C15 -72 14 -90 12 -102 Z" style="fill:var(--hl)"/>
+    <path d="M-14 -100 C-20 -90 -21 -78 -18 -68 C-12 -72 -8 -84 -8 -98 Z" style="fill:var(--mp,none)"/>
+    <path d="M-12 -14 C-14 -4 -12 4 -6 10 L14 10 C24 6 26 -6 22 -16 C10 -12 -2 -12 -12 -14 Z" fill="#0F2233"/>
+    <path d="M-20 -146 C-20 -160 -8 -164 4 -162 C14 -160 18 -150 16 -138 C14 -128 8 -122 -2 -121 C-10 -120 -16 -124 -18 -130 L-21 -134 C-22 -136 -21 -138 -20 -140 Z" fill="currentColor"/>
+    <path d="M-19 -148 C-18 -160 -6 -165 6 -162 C15 -159 19 -150 17 -140 C10 -144 0 -147 -19 -148 Z" fill="#FFC93C"/>
+    <path d="M-14 -143 C-2 -145 8 -144 16 -141" fill="none" stroke="#13324A" stroke-width="2.5" stroke-linecap="round"/>
+    <ellipse cx="-16" cy="-142" rx="4.5" ry="4" fill="#13324A"/>
+    <ellipse cx="-17" cy="-142" rx="2.6" ry="2.4" fill="#7FC4D6"/>
+    <path d="M3 -140 C7 -140 8 -135 5 -133" fill="none" style="stroke:var(--hl)" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <!-- cabeza sola centrada en 0,0, mirando a la izquierda -->
+  <g id="headS">
+    <g transform="translate(2 141)">
+      <path d="M-20 -146 C-20 -160 -8 -164 4 -162 C14 -160 18 -150 16 -138 C14 -128 8 -122 -2 -121 C-10 -120 -16 -124 -18 -130 L-21 -134 C-22 -136 -21 -138 -20 -140 Z" fill="currentColor"/>
+      <path d="M-19 -148 C-18 -160 -6 -165 6 -162 C15 -159 19 -150 17 -140 C10 -144 0 -147 -19 -148 Z" fill="#FFC93C"/>
+      <path d="M-14 -143 C-2 -145 8 -144 16 -141" fill="none" stroke="#13324A" stroke-width="2.5" stroke-linecap="round"/>
+      <ellipse cx="-16" cy="-142" rx="4.5" ry="4" fill="#13324A"/>
+      <ellipse cx="-17" cy="-142" rx="2.6" ry="2.4" fill="#7FC4D6"/>
+    </g>
+  </g>
+  <!-- tumbado boca abajo, mirando a la izquierda; hombro en 250,122 y cadera en 350,128 -->
+  <g id="torsoP">
+    <path d="M220 113 C228 109 236 108 242 111 L242 135 C234 135 227 133 220 129 Z" fill="currentColor"/>
+    <path d="M236 108 C258 103 285 104 310 110 C328 114 342 112 356 113 C370 114 378 124 372 136 C366 144 352 145 340 143 C320 141 300 139 282 141 C266 145 250 142 240 137 C228 133 226 116 236 108 Z" fill="currentColor"/>
+    <path d="M240 108 C262 104 288 105 310 111 C326 115 340 113 352 114 C336 117 322 118 308 115 C286 110 262 108 240 108 Z" style="fill:var(--hl)"/>
+    <path d="M256 120 C276 117 300 122 318 131 C300 136 276 136 258 132 C252 128 252 123 256 120 Z" style="fill:var(--ml,none)"/>
+    <path d="M334 112 C352 110 370 114 375 126 C377 137 368 144 352 145 L336 143 C341 133 340 121 334 112 Z" fill="#0F2233"/>
+    <path d="M318 137 C328 134 338 136 344 141 C334 144 324 142 318 137 Z" style="fill:var(--mh,none)"/>
+    <ellipse cx="216" cy="121" rx="18" ry="15" fill="currentColor"/>
+    <path d="M214 135 C216 139 220 139 222 136 Z" fill="currentColor"/>
+    <path d="M198 124 C196 111 205 104 217 104 C227 104 233 108 235 113 C226 116 214 120 206 127 C203 129 199 128 198 124 Z" fill="#FFC93C"/>
+    <path d="M204 128 C214 123 226 118 235 115" fill="none" stroke="#13324A" stroke-width="2.5" stroke-linecap="round"/>
+    <ellipse cx="207" cy="131" rx="5.5" ry="3.5" fill="#13324A"/>
+    <ellipse cx="206.5" cy="131" rx="3.5" ry="2" fill="#7FC4D6"/>
+    <path d="M223 118 C227 117 229 121 226 124" fill="none" style="stroke:var(--hl)" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <!-- agua: superficie, carril y ola -->
+  <g id="pool">
+    <rect x="0" y="0" width="640" height="100" fill="#F7FBFC"/>
+    <rect x="0" y="100" width="640" height="200" fill="#D3ECF2"/>
+    <rect x="40" y="252" width="560" height="8" rx="2" fill="#13324A" opacity=".85"/>
+    <rect x="592" y="242" width="8" height="28" rx="2" fill="#13324A" opacity=".85"/>
+  </g>
+  <path id="wavePath" d="M-60 100 q14 -7 28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0" fill="none" stroke="#7FC4D6" stroke-width="3" stroke-linecap="round"/>
+</defs>
+</svg>
+
+<div class="wrap">
+
+  <header>
+    <div class="kicker">Natación · martes a viernes · 2 horas · sin equipo</div>
+    <h1>Guía de piscina</h1>
+    <p class="sub">Movilidad antes, el ciclo dentro del agua, estiramientos al salir. Paso a paso, en orden.</p>
+    <div class="lane" aria-hidden="true"><i></i><b></b></div>
+
+    <div class="rule">
+      <h2>LAS DOS REGLAS</h2>
+      <p><strong>Rodilla:</strong> patada de crol, espalda y ondulación, vía libre. <span class="no">Patada de pecho (rana), nunca</span> — rotación de rodilla bajo carga.</p>
+      <p><strong>Hombro:</strong> con este volumen el riesgo se mueve de la rodilla al hombro. Si aparece dolor en la cara externa del hombro al sacar el brazo, ese día se acorta la sesión.</p>
+    </div>
+
+    <nav>
+      <a href="#antes">1 · Antes</a>
+      <a href="#agua">2 · En el agua</a>
+      <a href="#despues">3 · Al salir</a>
+      <a href="#tiempo">El tiempo</a>
+    </nav>
+  </header>
+
+  <!-- ============ 1 · ANTES ============ -->
+  <section class="block" id="antes">
+    <div class="block-head">
+      <div class="block-num">1</div>
+      <div><h3>Antes de entrar</h3><div class="meta">Movilidad en seco · 5 min</div></div>
+    </div>
+    <p class="block-note">Movilidad, no estiramiento. En frío los estiramientos estáticos relajan el músculo justo cuando lo necesitas despierto — esos van al final. Haz los cuatro seguidos, sin pausa.</p>
+
+    <!-- CIRCULOS DE BRAZOS -->
+    <div class="card">
+      <div class="fig std">
+        <svg class="rig" data-d="3.2" data-still="0.3" viewBox="0 0 300 330" role="img" aria-label="Nadador de pie haciendo círculos grandes con el brazo hacia adelante">
+          <line x1="40" y1="318" x2="260" y2="318" stroke="#BFD6DE" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="148.5" cy="121" r="104" fill="none" stroke="#FF6B2C" stroke-width="2" stroke-dasharray="3 7" opacity=".6"/>
+          <path d="M38 132 L44 120 L51 132" fill="none" stroke="#FF6B2C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <g transform="translate(150 193) scale(.75)">
+            <g class="fr" transform="translate(4 -96) rotate(90)">
+              <use href="#uarmN"/>
+              <g transform="translate(61 0) rotate(6)"><use href="#farmN"/><use href="#handN" transform="translate(48 0)"/></g>
+            </g>
+            <g class="fr" transform="translate(6 -2) rotate(90)">
+              <use href="#thigh"/>
+              <g transform="translate(81 0) rotate(-2)"><use href="#shin"/><use href="#footF" transform="translate(81 0) rotate(92)"/></g>
+            </g>
+            <g class="nr" transform="translate(-2 0) rotate(90)">
+              <use href="#thigh"/>
+              <g transform="translate(81 0) rotate(-2)"><use href="#shin"/><use href="#footF" transform="translate(81 0) rotate(92)"/></g>
+            </g>
+            <use href="#torsoS" class="nr"/>
+            <g class="nr" style="--md:#FF6B2C">
+              <g data-j="ac" data-t="-2 -96" data-r="90" transform="translate(-2 -96) rotate(90)">
+                <use href="#uarmN"/>
+                <g data-j="ae" data-t="61 0" transform="translate(61 0)"><use href="#farmN"/><use href="#handN" transform="translate(48 0)"/></g>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name-row">
+          <div><div class="idx">MOVILIDAD 1</div><div class="name">Círculos de brazos</div><div class="target">Hombro · completo</div></div>
+          <div class="dose">10 + 10</div>
+        </div>
+        <ol class="steps">
+          <li>De pie, un brazo estirado, haz círculos grandes y lentos hacia adelante.</li>
+          <li>Diez adelante, diez atrás. Luego el otro brazo.</li>
+          <li>Que el círculo sea completo y que el brazo pase cerca de la oreja.</li>
+        </ol>
+        <div class="tip"><b>Este es el que más importa.</b> Es lo que despierta el hombro antes de miles de brazadas.</div>
+      </div>
+    </div>
+
+    <!-- ROTACION DE HOMBRO -->
+    <div class="card">
+      <div class="fig top">
+        <svg class="rig" data-d="3" data-still="0.5" viewBox="0 0 300 210" role="img" aria-label="Vista desde arriba: codos pegados al cuerpo y antebrazos que se abren hacia afuera">
+          <path d="M84 194 A80 80 0 0 1 8.8 141.4" fill="none" stroke="#FF6B2C" stroke-width="2" stroke-dasharray="3 6" opacity=".7"/>
+          <path d="M216 194 A80 80 0 0 0 291.2 141.4" fill="none" stroke="#FF6B2C" stroke-width="2" stroke-dasharray="3 6" opacity=".7"/>
+          <g class="nr">
+            <ellipse cx="150" cy="86" rx="70" ry="26" fill="currentColor"/>
+            <path d="M86 78 C110 62 190 62 214 78 C190 70 110 70 86 78 Z" style="fill:var(--hl)"/>
+            <line x1="82" y1="90" x2="84" y2="112" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+            <line x1="218" y1="90" x2="216" y2="112" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+            <circle cx="82" cy="88" r="13" fill="#FF6B2C"/>
+            <circle cx="218" cy="88" r="13" fill="#FF6B2C"/>
+            <circle cx="150" cy="92" r="22" fill="currentColor"/>
+            <path d="M145 112 C147 119 153 119 155 112 Z" fill="currentColor"/>
+            <circle cx="150" cy="88" r="19" fill="#FFC93C"/>
+            <path d="M129 98 C140 103 160 103 171 98" fill="none" stroke="#13324A" stroke-width="2.5" stroke-linecap="round"/>
+            <g data-j="srL" data-t="84 114" data-r="90" transform="translate(84 114) rotate(90)"><use href="#farmN"/><use href="#handN" transform="translate(48 0)"/></g>
+            <g data-j="srR" data-t="216 114" data-r="90" transform="translate(216 114) rotate(90)"><use href="#farmM"/><use href="#handM" transform="translate(48 0)"/></g>
+          </g>
+          <g font-family="Barlow, sans-serif" font-weight="700" font-size="12.5" fill="#3F5566">
+            <text x="12" y="22">vista desde arriba</text>
+            <text x="150" y="204" text-anchor="middle">frente ↓</text>
+            <text x="236" y="128">codo pegado</text>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name-row">
+          <div><div class="idx">MOVILIDAD 2</div><div class="name">Rotación de hombro</div><div class="target">Rotadores · manguito</div></div>
+          <div class="dose">15</div>
+        </div>
+        <ol class="steps">
+          <li>Codos pegados a las costillas, doblados a 90°, antebrazos al frente.</li>
+          <li>Abre los antebrazos hacia afuera sin despegar los codos, y vuelve.</li>
+          <li>Lento, sin forzar el final del recorrido.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- BALANCEO DE PIERNA -->
+    <div class="card">
+      <div class="fig std">
+        <svg class="rig" data-d="1.8" data-still="0.25" viewBox="0 0 300 330" role="img" aria-label="Nadador de pie apoyado en la pared balanceando una pierna adelante y atrás desde la cadera">
+          <rect x="38" y="40" width="12" height="278" rx="2" fill="#CFE2E8"/>
+          <line x1="20" y1="318" x2="280" y2="318" stroke="#BFD6DE" stroke-width="3" stroke-linecap="round"/>
+          <path d="M211 301 A125 125 0 0 1 68 288.8" fill="none" stroke="#FF6B2C" stroke-width="2" stroke-dasharray="3 7" opacity=".6"/>
+          <g transform="translate(150 193) scale(.75)">
+            <g class="fr" transform="translate(4 -96) rotate(169)">
+              <use href="#uarmN"/>
+              <g transform="translate(61 0)"><use href="#farmN"/><use href="#handN" transform="translate(48 0)"/></g>
+            </g>
+            <g class="fr" transform="translate(6 -2) rotate(90)">
+              <use href="#thigh"/>
+              <g transform="translate(81 0) rotate(-2)"><use href="#shin"/><use href="#footF" transform="translate(81 0) rotate(92)"/></g>
+            </g>
+            <g class="nr" style="--mq:#FF6B2C;--mi:#FF6B2C">
+              <g data-j="lsT" data-t="-2 0" data-r="90" transform="translate(-2 0) rotate(90)">
+                <use href="#thigh"/>
+                <g data-j="lsK" data-t="81 0" transform="translate(81 0)"><use href="#shin"/><use href="#footF" transform="translate(81 0) rotate(92)"/></g>
+              </g>
+            </g>
+            <use href="#torsoS" class="nr"/>
+            <g class="nr" transform="translate(-2 -96) rotate(95)">
+              <use href="#uarmN"/>
+              <g transform="translate(61 0) rotate(12)"><use href="#farmN"/><use href="#handN" transform="translate(48 0)"/></g>
+            </g>
+          </g>
+          <g font-family="Barlow, sans-serif" font-weight="700" font-size="12.5" fill="#3F5566">
+            <text x="58" y="34">apóyate en la pared</text>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name-row">
+          <div><div class="idx">MOVILIDAD 3</div><div class="name">Balanceo de pierna</div><div class="target">Cadera · isquios</div></div>
+          <div class="dose">15 / lado</div>
+        </div>
+        <ol class="steps">
+          <li>Apóyate en la pared con una mano. Balancea una pierna adelante y atrás, relajada.</li>
+          <li>Pierna casi estirada, sin forzar la altura. El rango sale solo.</li>
+          <li>Luego 15 balanceos laterales (cruzando por delante) por pierna.</li>
+        </ol>
+        <div class="flag"><span class="ic">!</span><div><b>Tu rodilla:</b> es balanceo relajado, no una patada con fuerza. El impulso lo da la cadera, no el cuádriceps.</div></div>
+      </div>
+    </div>
+
+    <!-- GATO CAMELLO -->
+    <div class="card">
+      <div class="fig low">
+        <svg class="rig" data-d="6" data-still="0" viewBox="0 0 300 180" role="img" aria-label="En cuadrupedia, la espalda se redondea hacia arriba y luego se hunde">
+          <line x1="20" y1="168" x2="280" y2="168" stroke="#BFD6DE" stroke-width="3" stroke-linecap="round"/>
+          <g transform="translate(70 166) scale(.9)">
+            <g class="fr" transform="translate(5 -114) rotate(90)">
+              <use href="#uarmN"/>
+              <g transform="translate(61 0)"><use href="#farmN"/><use href="#handN" transform="translate(48 0) rotate(90)"/></g>
+            </g>
+            <g class="fr" transform="translate(101 -91) rotate(90)">
+              <use href="#thigh"/>
+              <g transform="translate(81 0) rotate(-90)"><use href="#shin"/><use href="#footP" transform="translate(81 0) rotate(4)"/></g>
+            </g>
+            <g class="nr">
+              <g data-j="ccL" data-t="96.8 -89" data-r="194.5" transform="translate(96.8 -89) rotate(194.5)">
+                <path d="M-14 14 C8 19 40 16 62 13 L62 -13 C40 -14 10 -17 -10 -17 C-20 -10 -20 8 -14 14 Z" fill="currentColor"/>
+                <path d="M-10 13 C10 17 40 14 60 11.5 C40 12 12 13 -10 13 Z" fill="#FF6B2C"/>
+                <path d="M-14 14 C-2 16 8 16 14 15 L14 -16 C4 -17 -4 -17 -10 -17 C-20 -10 -20 8 -14 14 Z" fill="#0F2233"/>
+              </g>
+              <g data-j="ccU" data-t="0 -114" data-r="14.5" transform="translate(0 -114) rotate(14.5)">
+                <path d="M-12 -16 C10 -21 40 -18 62 -15 L62 15 C40 17 14 21 -8 19 C-18 12 -18 -10 -12 -16 Z" fill="currentColor"/>
+                <path d="M-8 -15 C12 -19 40 -16 60 -13.5 C40 -14 14 -15 -8 -15 Z" fill="#FF6B2C"/>
+              </g>
+            </g>
+            <g class="nr" transform="translate(96.8 -89) rotate(90)">
+              <use href="#thigh"/>
+              <g transform="translate(81 0) rotate(-90)"><use href="#shin"/><use href="#footP" transform="translate(81 0) rotate(4)"/></g>
+            </g>
+            <g class="nr" data-j="ccH" data-t="0 -114" transform="translate(0 -114)">
+              <path d="M-4 -12 L-26 -6 L-24 12 L4 12 Z" fill="currentColor"/>
+              <use href="#headS" transform="translate(-36 4) rotate(-70)"/>
+            </g>
+            <g class="nr" transform="translate(0 -114) rotate(90)">
+              <use href="#uarmN"/>
+              <g transform="translate(61 0)"><use href="#farmN"/><use href="#handN" transform="translate(48 0) rotate(90)"/></g>
+            </g>
+          </g>
+          <g font-family="Barlow, sans-serif" font-weight="700" font-size="12.5" fill="#3F5566">
+            <text x="160" y="24">exhala: espalda arriba</text>
+            <text x="160" y="40">inhala: espalda abajo</text>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name-row">
+          <div><div class="idx">MOVILIDAD 4</div><div class="name">Gato — camello</div><div class="target">Columna · lumbar</div></div>
+          <div class="dose">10 ciclos</div>
+        </div>
+        <ol class="steps">
+          <li>En cuadrupedia: manos bajo hombros, rodillas bajo caderas.</li>
+          <li>Exhala y redondea la espalda hacia arriba, barbilla al pecho.</li>
+          <li>Inhala y hunde la espalda, pecho y mirada arriba.</li>
+        </ol>
+        <div class="tip"><b>Por qué va aquí:</b> prepara la lumbar para la ondulación y para la brazada con las piernas hundidas.</div>
+      </div>
+    </div>
+
+    <div class="note"><b>Y antes de meterte:</b> ducha rápida (norma de higiene y te aclimata), botella de agua al borde donde la alcances, y gafas puestas. Para dos horas las gafas no son opcionales.</div>
+  </section>
+
+  <!-- ============ 2 · EN EL AGUA ============ -->
+  <section class="block" id="agua">
+    <div class="block-head">
+      <div class="block-num water">2</div>
+      <div><h3>En el agua</h3><div class="meta">El ciclo de 40 min, repetido</div></div>
+    </div>
+    <p class="block-note">Un solo ciclo que repites tres veces: dos horas, todas las sesiones. El orden no es arbitrario: libre con la técnica fresca, patada después (lo más duro), brazada para que las piernas descansen, y ondular al final.</p>
+
+    <div class="cyclebar">
+      <div class="cyclerow"><span class="n">1</span><span class="what">Libre completo</span><span class="amt">10 MIN</span></div>
+      <div class="cyclerow"><span class="n">2</span><span class="what">Solo patada de libre</span><span class="amt">10 MIN</span></div>
+      <div class="cyclerow"><span class="n">3</span><span class="what">Solo brazada</span><span class="amt">10 MIN</span></div>
+      <div class="cyclerow"><span class="n">4</span><span class="what">Ondular</span><span class="amt">5 MIN</span></div>
+      <div class="cyclerow"><span class="n">5</span><span class="what">Libre suave</span><span class="amt">5 MIN</span></div>
+      <div class="cycletotal">Un ciclo = 40 minutos · 3 ciclos = 2 horas</div>
+    </div>
+
+    <div class="note" style="margin-top:0;margin-bottom:16px"><b>El bloque es un recipiente de tiempo, no un esfuerzo sin parar.</b> Diez minutos de patada seguidos no los vas a sostener la primera semana, y no hace falta: dentro del bloque puedes pararte en el borde a respirar, o meter unos metros suaves y seguir. Lo que cuenta es que esos 10 minutos sean de ese estilo. Cuántas veces paraste es justo lo que anotas al salir, y lo que va bajando semana a semana.</div>
+
+    <!-- LIBRE -->
+    <div class="card">
+      <div class="fig">
+        <svg class="rig" data-d="2.8" data-still="0.15" viewBox="0 0 640 270" role="img" aria-label="Animación del estilo libre completo: brazos alternos y patada continua">
+          <use href="#pool"/>
+          <g class="wave"><use href="#wavePath"/></g>
+          <g class="fr" data-o="0.5">
+            <g data-j="pu" data-t="254 126" data-r="180" transform="translate(254 126) rotate(180)">
+              <use href="#uarmM"/>
+              <g data-j="pf" data-t="61 0" transform="translate(61 0)"><use href="#farmM"/>
+                <g data-j="ph" data-t="48 0" transform="translate(48 0)"><use href="#handM"/></g>
+              </g>
+            </g>
+          </g>
+          <g class="fr" data-d="0.467" data-o="0.5">
+            <g data-j="kth" data-t="350 124" transform="translate(350 124)"><use href="#thigh"/>
+              <g data-j="kkn" data-t="81 0" transform="translate(81 0)"><use href="#shin"/>
+                <g data-j="kan" data-t="81 0" transform="translate(81 0)"><use href="#footP"/></g>
+              </g>
+            </g>
+          </g>
+          <g class="nr" data-d="0.467">
+            <g data-j="kth" data-t="350 130" transform="translate(350 130)"><use href="#thigh"/>
+              <g data-j="kkn" data-t="81 0" transform="translate(81 0)"><use href="#shin"/>
+                <g data-j="kan" data-t="81 0" transform="translate(81 0)"><use href="#footP"/></g>
+              </g>
+            </g>
+          </g>
+          <use href="#torsoP" class="nr"/>
+          <g class="nr">
+            <g data-j="pu" data-t="250 122" data-r="180" transform="translate(250 122) rotate(180)">
+              <use href="#uarmM"/>
+              <g data-j="pf" data-t="61 0" transform="translate(61 0)"><use href="#farmM"/>
+                <g data-j="ph" data-t="48 0" transform="translate(48 0)"><use href="#handM"/></g>
+              </g>
+            </g>
+          </g>
+          <g font-family="Barlow, sans-serif" font-weight="700" font-size="13.5" fill="#2B5468">
+            <text x="430" y="212">brazada + patada juntas</text>
+            <text x="430" y="230" font-weight="600" font-size="12.5">6 patadas por cada brazada</text>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name-row">
+          <div><div class="idx">BLOQUE 1</div><div class="name">Libre completo</div><div class="target">Todo el cuerpo</div></div>
+          <div class="dose">10 MIN</div>
+        </div>
+        <ol class="steps">
+          <li>Largo completo de la piscina, brazada y patada coordinadas.</li>
+          <li>Respira cada 2 o 3 brazadas girando la cabeza, sin levantarla.</li>
+          <li>Al pasar por la zona bajita (2/5), reduce amplitud de brazo y patada y sigue. Te queda como recuperación activa.</li>
+        </ol>
+        <div class="tip"><b>Intensidad:</b> zona 2 — podrías hablar en frases completas. Si acabas el bloque sin aire, vas muy fuerte para una sesión larga.</div>
+      </div>
+    </div>
+
+    <!-- PATADA -->
+    <div class="card">
+      <div class="fig">
+        <svg class="rig" data-d="0.9" data-still="0.6" viewBox="0 0 640 270" role="img" aria-label="Animación de la patada de crol: el muslo inicia desde la cadera, la rodilla se dobla poco y el tobillo va suelto">
+          <use href="#pool"/>
+          <g class="wave"><use href="#wavePath"/></g>
+          <g class="bob">
+            <g class="fr" transform="translate(254 125) rotate(183)">
+              <use href="#uarmM"/>
+              <g transform="translate(61 0)"><use href="#farmM"/><use href="#handM" transform="translate(48 0)"/></g>
+            </g>
+            <g class="fr" data-o="0.5" style="--mq:#FFB48F">
+              <g data-j="kth" data-t="350 124" transform="translate(350 124)"><use href="#thigh"/>
+                <g data-j="kkn" data-t="81 0" transform="translate(81 0)"><use href="#shin"/>
+                  <g data-j="kan" data-t="81 0" transform="translate(81 0)"><use href="#footP"/></g>
+                </g>
+              </g>
+            </g>
+            <g class="nr" style="--mq:#FF6B2C">
+              <g data-j="kth" data-t="350 130" transform="translate(350 130)"><use href="#thigh"/>
+                <g data-j="kkn" data-t="81 0" transform="translate(81 0)"><use href="#shin"/>
+                  <g data-j="kan" data-t="81 0" transform="translate(81 0)"><use href="#footP"/></g>
+                </g>
+              </g>
+            </g>
+            <use href="#torsoP" class="nr" style="--mh:#FF6B2C"/>
+            <g class="nr" transform="translate(250 120) rotate(184)">
+              <use href="#uarmM"/>
+              <g transform="translate(61 0)"><use href="#farmM"/><use href="#handM" transform="translate(48 0)"/></g>
+            </g>
+          </g>
+          <g fill="none" stroke="#5FA9BE" stroke-width="2">
+            <circle class="bub" cx="552" cy="140" r="3"/>
+            <circle class="bub b2" cx="560" cy="150" r="2.5"/>
+            <circle class="bub b3" cx="546" cy="148" r="2"/>
+          </g>
+          <circle cx="350" cy="130" r="6" fill="#FFFFFF" stroke="#FF6B2C" stroke-width="3"/>
+          <path d="M344 142 L306 194" stroke="#0F3B52" stroke-width="2" stroke-dasharray="3 4" fill="none"/>
+          <g font-family="Barlow, sans-serif" font-weight="700" font-size="13" fill="#2B5468">
+            <text x="200" y="212" font-family="Barlow Condensed, sans-serif" font-size="21" font-weight="800" fill="#0F3B52">LA CADERA INICIA</text>
+            <text x="200" y="230" font-weight="600" font-size="12.5">cuádriceps y flexor de cadera hacen el trabajo</text>
+            <text x="380" y="66">rodilla: dobla poco, nunca bloquea</text>
+            <text x="476" y="218">tobillo suelto, en punta</text>
+            <text x="40" y="80">brazos en flecha, tapando las orejas</text>
+          </g>
+          <path d="M431 72 L431 120" stroke="#5FA9BE" stroke-width="2" stroke-dasharray="3 4" fill="none"/>
+          <path d="M520 202 L516 154" stroke="#5FA9BE" stroke-width="2" stroke-dasharray="3 4" fill="none"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name-row">
+          <div><div class="idx">BLOQUE 2</div><div class="name">Solo patada de libre</div><div class="target">Cuádriceps · glúteo · cadera</div></div>
+          <div class="dose">10 MIN</div>
+        </div>
+        <ol class="steps">
+          <li>Brazos estirados adelante, una mano sobre la otra, cabeza entre los brazos (posición de flecha).</li>
+          <li>La patada sale de la <b>cadera</b>, no de la rodilla. Rodilla casi recta, tobillo suelto.</li>
+          <li>Pies pequeños y rápidos, apenas rompiendo la superficie.</li>
+          <li>Cuando necesites aire, gira a un costado (un brazo adelante, el otro al muslo) y respira sin parar de patear.</li>
+        </ol>
+        <div class="flag"><span class="ic">!</span><div><b>Usa solo los 3/5 hondos.</b> Da la vuelta antes de la zona bajita: ahí los pies te pegan al fondo y el bloque pierde todo el valor. Aquí sí necesitas amplitud completa.</div></div>
+      </div>
+    </div>
+
+    <!-- BRAZADA -->
+    <div class="card">
+      <div class="fig">
+        <svg class="rig" data-d="3.4" data-still="0.15" viewBox="0 0 640 270" role="img" aria-label="Animación de la brazada de crol en cinco fases: entrada, agarre, tirón, empuje y recobro">
+          <use href="#pool"/>
+          <g class="wave"><use href="#wavePath"/></g>
+          <g font-family="Barlow Condensed, sans-serif" font-size="15.5" font-weight="700" text-anchor="middle">
+            <rect x="24" y="12" width="112" height="26" rx="13" fill="#FFFFFF" stroke="#CFE2E8"/>
+            <rect class="lb" data-show="0.94-0.11" x="24" y="12" width="112" height="26" rx="13" fill="#FF6B2C"/>
+            <text x="80" y="30" fill="#13324A">1 · ENTRADA</text>
+            <rect x="144" y="12" width="112" height="26" rx="13" fill="#FFFFFF" stroke="#CFE2E8"/>
+            <rect class="lb" data-show="0.11-0.27" x="144" y="12" width="112" height="26" rx="13" fill="#FF6B2C"/>
+            <text x="200" y="30" fill="#13324A">2 · AGARRE</text>
+            <rect x="264" y="12" width="112" height="26" rx="13" fill="#FFFFFF" stroke="#CFE2E8"/>
+            <rect class="lb" data-show="0.27-0.47" x="264" y="12" width="112" height="26" rx="13" fill="#FF6B2C"/>
+            <text x="320" y="30" fill="#13324A">3 · TIRÓN</text>
+            <rect x="384" y="12" width="112" height="26" rx="13" fill="#FFFFFF" stroke="#CFE2E8"/>
+            <rect class="lb" data-show="0.47-0.63" x="384" y="12" width="112" height="26" rx="13" fill="#FF6B2C"/>
+            <text x="440" y="30" fill="#13324A">4 · EMPUJE</text>
+            <rect x="504" y="12" width="112" height="26" rx="13" fill="#FFFFFF" stroke="#CFE2E8"/>
+            <rect class="lb" data-show="0.63-0.94" x="504" y="12" width="112" height="26" rx="13" fill="#FF6B2C"/>
+            <text x="560" y="30" fill="#13324A">5 · RECOBRO</text>
+          </g>
+          <path d="M111 122 C140 180 180 228 202 228 C240 236 270 242 292 239 C330 220 360 190 379 171 C385 140 388 115 386 99" fill="none" stroke="#5FA9BE" stroke-width="2.5" stroke-dasharray="4 5"/>
+          <path d="M386 99 C330 70 260 70 183 77 C150 80 130 78 124 82 C116 95 112 110 111 122" fill="none" stroke="#9CCBD8" stroke-width="2" stroke-dasharray="2 6"/>
+          <g class="fr" data-o="0.5">
+            <g data-j="pu" data-t="254 126" data-r="180" transform="translate(254 126) rotate(180)">
+              <use href="#uarmM"/>
+              <g data-j="pf" data-t="61 0" transform="translate(61 0)"><use href="#farmM"/>
+                <g data-j="ph" data-t="48 0" transform="translate(48 0)"><use href="#handM"/></g>
+              </g>
+            </g>
+          </g>
+          <g class="fr" data-o="0.25">
+            <g data-j="pth" data-t="350 124" transform="translate(350 124)"><use href="#thigh"/>
+              <g data-j="pkn" data-t="81 0" transform="translate(81 0)"><use href="#shin"/><use href="#footP" transform="translate(81 0) rotate(-6)"/></g>
+            </g>
+          </g>
+          <g class="nr">
+            <g data-j="pth" data-t="350 130" transform="translate(350 130)"><use href="#thigh"/>
+              <g data-j="pkn" data-t="81 0" transform="translate(81 0)"><use href="#shin"/><use href="#footP" transform="translate(81 0) rotate(-6)"/></g>
+            </g>
+          </g>
+          <use href="#torsoP" class="nr" style="--ml:#FF6B2C"/>
+          <g class="nr" style="--md:#FF6B2C;--mt:#FF6B2C">
+            <g data-j="pu" data-t="250 122" data-r="180" transform="translate(250 122) rotate(180)">
+              <use href="#uarmM"/>
+              <g data-j="pf" data-t="61 0" transform="translate(61 0)"><use href="#farmM"/>
+                <g data-j="ph" data-t="48 0" transform="translate(48 0)"><use href="#handM"/></g>
+              </g>
+            </g>
+          </g>
+          <g text-anchor="middle" font-family="Barlow, sans-serif">
+            <g class="lb" data-show="0.94-0.11"><text x="520" y="200" font-family="Barlow Condensed, sans-serif" font-size="21" font-weight="800" fill="#0F3B52">ENTRADA</text><text x="520" y="220" font-size="13" font-weight="600" fill="#2B5468">la mano entra delante del hombro</text></g>
+            <g class="lb" data-show="0.11-0.27"><text x="520" y="200" font-family="Barlow Condensed, sans-serif" font-size="21" font-weight="800" fill="#0F3B52">AGARRE</text><text x="520" y="220" font-size="13" font-weight="600" fill="#2B5468">codo alto, antebrazo vertical</text></g>
+            <g class="lb" data-show="0.27-0.47"><text x="520" y="200" font-family="Barlow Condensed, sans-serif" font-size="21" font-weight="800" fill="#0F3B52">TIRÓN</text><text x="520" y="220" font-size="13" font-weight="600" fill="#2B5468">la mano pasa bajo el pecho</text></g>
+            <g class="lb" data-show="0.47-0.63"><text x="520" y="200" font-family="Barlow Condensed, sans-serif" font-size="21" font-weight="800" fill="#0F3B52">EMPUJE</text><text x="520" y="220" font-size="13" font-weight="600" fill="#2B5468">acelera hasta el muslo</text></g>
+            <g class="lb" data-show="0.63-0.94"><text x="520" y="200" font-family="Barlow Condensed, sans-serif" font-size="21" font-weight="800" fill="#0F3B52">RECOBRO</text><text x="520" y="220" font-size="13" font-weight="600" fill="#2B5468">codo arriba, antebrazo colgando</text></g>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name-row">
+          <div><div class="idx">BLOQUE 3</div><div class="name">Solo brazada</div><div class="target">Espalda · pecho · hombro</div></div>
+          <div class="dose">10 MIN</div>
+        </div>
+        <ol class="steps">
+          <li>Entra la mano al agua delante del hombro y estírate.</li>
+          <li>Dobla el codo y empuja el agua hacia atrás por debajo del cuerpo, hasta el muslo.</li>
+          <li>Mantén una <b>patada mínima</b> de dos tiempos, solo para que las caderas no se hundan.</li>
+        </ol>
+        <div class="flag"><span class="ic">!</span><div><b>Este es el bloque donde alargar sí tiene coste.</b> Sin flotador las piernas se hunden, y eso arquea la lumbar y carga más el hombro. Si a los 10 minutos notas la lumbar, pártelo en 5 + 5 con un minuto de libre suave en medio. Y la patada mínima no es opcional.</div></div>
+      </div>
+    </div>
+
+    <!-- ONDULAR -->
+    <div class="card">
+      <div class="fig">
+        <svg class="rig" data-d="1.4" data-still="0.2" viewBox="0 0 640 270" role="img" aria-label="Animación de la ondulación: la onda nace en el pecho, pasa por la cadera y termina en los pies">
+          <use href="#pool"/>
+          <g class="wave"><use href="#wavePath"/></g>
+          <g data-j="o1" data-t="305 124" data-u="-305 -124" transform="translate(305 124) translate(-305 -124)">
+            <g class="fr" transform="translate(254 125) rotate(183)">
+              <use href="#uarmM"/>
+              <g transform="translate(61 0)"><use href="#farmM"/><use href="#handM" transform="translate(48 0)"/></g>
+            </g>
+            <g data-j="o2" data-t="305 124" data-u="-305 -124" transform="translate(305 124) translate(-305 -124)">
+              <g class="fr">
+                <g data-j="o3" data-t="350 125" transform="translate(350 125)"><use href="#thigh"/>
+                  <g data-j="o4" data-t="81 0" transform="translate(81 0)"><use href="#shin"/>
+                    <g data-j="o5" data-t="81 0" transform="translate(81 0)"><use href="#footP"/></g>
+                  </g>
+                </g>
+              </g>
+              <g class="nr">
+                <g data-j="o3" data-t="350 130" transform="translate(350 130)"><use href="#thigh"/>
+                  <g data-j="o4" data-t="81 0" transform="translate(81 0)"><use href="#shin"/>
+                    <g data-j="o5" data-t="81 0" transform="translate(81 0)"><use href="#footP"/></g>
+                  </g>
+                </g>
+              </g>
+              <g class="nr">
+                <path d="M300 110 C318 112 342 112 356 113 C370 114 378 124 372 136 C366 144 352 145 340 143 C322 141 306 139 298 139 Z" fill="currentColor"/>
+                <path d="M306 111 C326 115 340 113 352 114 C336 117 322 118 306 115 Z" fill="#FF6B2C"/>
+                <path d="M298 132 C312 134 326 136 340 142 C326 141 312 139 298 138 Z" fill="#FF6B2C"/>
+                <path d="M334 112 C352 110 370 114 375 126 C377 137 368 144 352 145 L336 143 C341 133 340 121 334 112 Z" fill="#0F2233"/>
+              </g>
+            </g>
+            <g class="nr">
+              <path d="M220 113 C228 109 236 108 242 111 L242 135 C234 135 227 133 220 129 Z" fill="currentColor"/>
+              <path d="M236 108 C258 103 285 104 310 110 L314 140 C300 139 290 140 282 141 C266 145 250 142 240 137 C228 133 226 116 236 108 Z" fill="currentColor"/>
+              <path d="M240 108 C262 104 288 105 310 111 C298 112 286 110 270 109 C258 108 248 108 240 108 Z" style="fill:var(--hl)"/>
+              <ellipse cx="216" cy="121" rx="18" ry="15" fill="currentColor"/>
+              <path d="M214 135 C216 139 220 139 222 136 Z" fill="currentColor"/>
+              <path d="M198 124 C196 111 205 104 217 104 C227 104 233 108 235 113 C226 116 214 120 206 127 C203 129 199 128 198 124 Z" fill="#FFC93C"/>
+              <path d="M204 128 C214 123 226 118 235 115" fill="none" stroke="#13324A" stroke-width="2.5" stroke-linecap="round"/>
+              <ellipse cx="207" cy="131" rx="5.5" ry="3.5" fill="#13324A"/>
+              <ellipse cx="206.5" cy="131" rx="3.5" ry="2" fill="#7FC4D6"/>
+              <g transform="translate(250 120) rotate(184)">
+                <use href="#uarmM"/>
+                <g transform="translate(61 0)"><use href="#farmM"/><use href="#handM" transform="translate(48 0)"/></g>
+              </g>
+            </g>
+          </g>
+          <g font-family="Barlow, sans-serif" font-weight="700" font-size="13" fill="#2B5468">
+            <text x="60" y="212" font-family="Barlow Condensed, sans-serif" font-size="21" font-weight="800" fill="#0F3B52">PECHO → CADERA → PIES</text>
+            <text x="60" y="230" font-weight="600" font-size="12.5">piernas juntas, la onda viaja; no es patear</text>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name-row">
+          <div><div class="idx">BLOQUE 4</div><div class="name">Ondular</div><div class="target">Core · cadena posterior</div></div>
+          <div class="dose">5 MIN</div>
+        </div>
+        <ol class="steps">
+          <li>Brazos en flecha, piernas juntas, tobillos relajados.</li>
+          <li>La onda arranca en el pecho, pasa por la cadera y termina en los pies. No es patear: es ondular.</li>
+          <li>Movimiento continuo y suave, sin latigazos.</li>
+        </ol>
+        <div class="flag"><span class="ic">!</span><div><b>Cinco minutos y punto — este no lo alargues.</b> Para la rodilla es segura, pero es extensión lumbar repetida: en 3 ciclos ya te suman 15 minutos, que es bastante. Es el único bloque que no crece.</div></div>
+      </div>
+    </div>
+
+    <!-- LIBRE SUAVE -->
+    <div class="card">
+      <div class="body" style="padding-top:17px">
+        <div class="name-row">
+          <div><div class="idx">BLOQUE 5</div><div class="name">Libre suave</div><div class="target">Recuperación</div></div>
+          <div class="dose">5 MIN</div>
+        </div>
+        <ol class="steps">
+          <li>Libre a ritmo cómodo, respirando tranquilo, largo completo.</li>
+          <li>Al terminar, <b>dos o tres tragos de agua</b>. Cada ciclo, sin falta.</li>
+          <li>Y arrancas el siguiente ciclo desde el bloque 1.</li>
+        </ol>
+        <div class="tip"><b>Lo de beber no es un detalle.</b> En el agua no sientes la sed y te deshidratas igual que en seco. Es la causa número uno de que la segunda hora se sienta imposible. Con ciclos de 40 minutos, bebes cada 40 — no lo saltes.</div>
+      </div>
+    </div>
+
+    <div class="note"><b>Los primeros 10 minutos del ciclo 1 van claramente suaves</b> — ese es tu calentamiento. Y los últimos 5 minutos de la sesión también, que es tu vuelta a la calma. No necesitas bloques aparte para eso.</div>
+  </section>
+
+  <!-- ============ 3 · AL SALIR ============ -->
+  <section class="block" id="despues">
+    <div class="block-head">
+      <div class="block-num">3</div>
+      <div><h3>Al salir</h3><div class="meta">Estiramientos · 8 min</div></div>
+    </div>
+    <p class="block-note">Ahora sí, con el músculo caliente. En el vestuario o llegando a casa. Sin rebotes: entras, aguantas y respiras. Estiramiento, nunca dolor.</p>
+
+    <!-- FLEXOR DE CADERA -->
+    <div class="card">
+      <div class="fig">
+        <svg viewBox="0 0 640 280" role="img" aria-label="Estiramiento de flexor de cadera en zancada con la rodilla de atrás apoyada en la toalla">
+          <line x1="120" y1="268" x2="560" y2="268" stroke="#BFD6DE" stroke-width="3" stroke-linecap="round"/>
+          <rect x="332" y="259" width="48" height="7" rx="3" fill="#7FC4D6"/>
+          <g transform="translate(330 175) scale(.95)">
+            <g class="fr" transform="translate(-2 2) rotate(173)">
+              <use href="#thigh"/>
+              <g transform="translate(81 0) rotate(-83)"><use href="#shin"/><use href="#footF" transform="translate(81 0) rotate(90)"/></g>
+            </g>
+            <g class="nr" style="--mq:#FF6B2C" transform="translate(0 2) rotate(74)">
+              <use href="#thigh"/>
+              <g transform="translate(81 0) rotate(-66)"><use href="#shin"/><use href="#footP" transform="translate(81 0) rotate(4)"/></g>
+            </g>
+            <ellipse class="glow" cx="-8" cy="6" rx="26" ry="18" fill="#FF6B2C"/>
+            <g class="chest" style="transform-origin:0 0"><use href="#torsoS" class="nr"/></g>
+            <g class="nr" transform="translate(-2 -96) rotate(70)">
+              <use href="#uarmN"/>
+              <g transform="translate(61 0) rotate(65)"><use href="#farmN"/><use href="#handN" transform="translate(48 0) rotate(25)"/></g>
+            </g>
+          </g>
+          <g class="push">
+            <path d="M296 200 L262 200" stroke="#B83D0B" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M272 192 L262 200 L272 208" stroke="#B83D0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </g>
+          <g font-family="Barlow, sans-serif" font-weight="600" font-size="12.5" fill="#3F5566">
+            <text x="56" y="150" font-family="Barlow Condensed, sans-serif" font-size="19" font-weight="800" fill="#B83D0B">EMPUJA LA CADERA</text>
+            <text x="56" y="168">hacia adelante, ombligo adentro</text>
+            <text x="426" y="160" font-family="Barlow Condensed, sans-serif" font-size="19" font-weight="800" fill="#0F2233">LO SIENTES AQUÍ</text>
+            <text x="426" y="178">psoas y cuádriceps de atrás</text>
+            <text x="360" y="56" font-weight="700" font-size="13">torso erguido, sin arquear</text>
+            <text x="440" y="240" font-weight="700" font-size="13">rodilla en la toalla</text>
+          </g>
+          <path d="M346 196 L420 166" stroke="#3F5566" stroke-width="2" stroke-dasharray="3 4" fill="none"/>
+          <circle cx="572" cy="60" r="26" fill="none" stroke="#DCEBEF" stroke-width="6"/>
+          <circle class="ring" cx="572" cy="60" r="26" fill="none" stroke="#FF6B2C" stroke-width="6" stroke-linecap="round" stroke-dasharray="163" stroke-dashoffset="163" transform="rotate(-90 572 60)"/>
+          <text x="572" y="66" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-size="18" font-weight="800" fill="#0F2233">30 S</text>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name-row">
+          <div><div class="idx">ESTIRAMIENTO 1</div><div class="name">Flexor de cadera</div><div class="target">Ingle · psoas</div></div>
+          <div class="dose">2 × 30 S / LADO</div>
+        </div>
+        <ol class="steps">
+          <li>Zancada con la rodilla de atrás apoyada (pon la toalla debajo).</li>
+          <li>Torso erguido, mete un poco el ombligo y empuja la cadera hacia adelante.</li>
+          <li>Lo sientes en la parte delantera de la cadera de atrás.</li>
+        </ol>
+        <div class="tip"><b>El más importante de los cuatro.</b> La patada de crol es dominante de flexor de cadera, y tus flexores ya están cortos de la época de correr — eso jala la pelvis y empeora cómo se mueve tu rótula. Por eso va dos veces.</div>
+      </div>
+    </div>
+
+    <!-- CUADRICEPS -->
+    <div class="card">
+      <div class="fig std">
+        <svg viewBox="0 0 300 330" role="img" aria-label="De pie, apoyado en la pared, lleva el talón hacia el glúteo sujetando el empeine">
+          <rect x="58" y="40" width="12" height="278" rx="2" fill="#CFE2E8"/>
+          <line x1="40" y1="318" x2="280" y2="318" stroke="#BFD6DE" stroke-width="3" stroke-linecap="round"/>
+          <g transform="translate(170 193) scale(.75)">
+            <g class="fr" transform="translate(4 -96) rotate(176)">
+              <use href="#uarmN"/>
+              <g transform="translate(61 0)"><use href="#farmN"/><use href="#handN" transform="translate(48 0)"/></g>
+            </g>
+            <g class="fr" transform="translate(6 -2) rotate(90)">
+              <use href="#thigh"/>
+              <g transform="translate(81 0) rotate(-2)"><use href="#shin"/><use href="#footF" transform="translate(81 0) rotate(92)"/></g>
+            </g>
+            <g class="nr" style="--mq:#FF6B2C" transform="translate(-2 0) rotate(85)">
+              <use href="#thigh"/>
+              <g transform="translate(81 0) rotate(-160)"><use href="#shin"/><use href="#footP" transform="translate(81 0) rotate(-8)"/></g>
+            </g>
+            <ellipse class="glow" cx="-9" cy="42" rx="11" ry="30" fill="#FF6B2C"/>
+            <use href="#torsoS" class="nr"/>
+            <g class="nr" transform="translate(-2 -96) rotate(55.4)">
+              <use href="#uarmN"/>
+              <g transform="translate(61 0) rotate(40)"><use href="#farmN"/><use href="#handN" transform="translate(48 0) rotate(20)"/></g>
+            </g>
+          </g>
+          <g font-family="Barlow, sans-serif" font-weight="700" font-size="12.5" fill="#3F5566">
+            <text x="200" y="96">talón al glúteo</text>
+            <text x="200" y="112" font-weight="600">sin tirar fuerte</text>
+            <text x="78" y="300">rodillas juntas</text>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name-row">
+          <div><div class="idx">ESTIRAMIENTO 2</div><div class="name">Cuádriceps</div><div class="target">Muslo frontal</div></div>
+          <div class="dose">2 × 30 S / LADO</div>
+        </div>
+        <ol class="steps">
+          <li>De pie, agarra el empeine y lleva el talón hacia el glúteo.</li>
+          <li>Rodillas juntas y cadera hacia adelante.</li>
+          <li>Apóyate en la pared del vestuario si pierdes el equilibrio.</li>
+        </ol>
+        <div class="flag"><span class="ic">!</span><div><b>Tu rodilla:</b> no tires del pie con fuerza. Con patella alta, jalar agresivo comprime la rótula. Suave y controlado.</div></div>
+      </div>
+    </div>
+
+    <!-- PANTORRILLA -->
+    <div class="card">
+      <div class="fig std">
+        <svg viewBox="0 0 300 330" role="img" aria-label="Manos en la pared, pierna de atrás estirada con el talón pegado al suelo">
+          <rect x="30" y="40" width="12" height="278" rx="2" fill="#CFE2E8"/>
+          <line x1="20" y1="318" x2="280" y2="318" stroke="#BFD6DE" stroke-width="3" stroke-linecap="round"/>
+          <g transform="translate(140 200) scale(.75)">
+            <g class="fr" transform="translate(-4 -2) rotate(118.7)">
+              <use href="#thigh"/>
+              <g transform="translate(81 0) rotate(-28)"><use href="#shin"/><use href="#footF" transform="translate(81 0) rotate(89.3)"/></g>
+            </g>
+            <g class="nr" style="--mc:#FF6B2C" transform="rotate(70)">
+              <use href="#thigh"/>
+              <g transform="translate(81 0)"><use href="#shin"/><use href="#footF" transform="translate(81 0) rotate(110)"/></g>
+            </g>
+            <g transform="rotate(-18)">
+              <g class="fr" transform="translate(4 -96) rotate(176.3)">
+                <use href="#uarmN"/>
+                <g transform="translate(61 0) rotate(55.8)"><use href="#farmN"/><use href="#handN" transform="translate(48 0) rotate(55.9)"/></g>
+              </g>
+              <use href="#torsoS" class="nr"/>
+              <g class="nr" transform="translate(-2 -96) rotate(176.3)">
+                <use href="#uarmN"/>
+                <g transform="translate(61 0) rotate(55.8)"><use href="#farmN"/><use href="#handN" transform="translate(48 0) rotate(55.9)"/></g>
+              </g>
+            </g>
+            <g transform="rotate(70)"><ellipse class="glow" cx="117" cy="-8" rx="24" ry="9" fill="#FF6B2C"/></g>
+          </g>
+          <g font-family="Barlow, sans-serif" font-weight="700" font-size="12.5" fill="#3F5566">
+            <text x="198" y="258">gemelo:</text>
+            <text x="198" y="274" font-weight="600">lo sientes aquí</text>
+            <text x="198" y="306">talón pegado</text>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name-row">
+          <div><div class="idx">ESTIRAMIENTO 3</div><div class="name">Pantorrilla</div><div class="target">Gemelo · tobillo</div></div>
+          <div class="dose">30 S / LADO</div>
+        </div>
+        <ol class="steps">
+          <li>Manos en la pared, una pierna atrás estirada y la otra adelante doblada.</li>
+          <li>Empuja la cadera hacia la pared con el <b>talón de atrás pegado al suelo</b>.</li>
+          <li>La punta del pie de atrás apunta al frente.</li>
+        </ol>
+        <div class="tip"><b>Por qué después de nadar:</b> la patada con el tobillo en punta acorta el gemelo sesión tras sesión. Y es lo que causa los calambres de pie en el agua.</div>
+      </div>
+    </div>
+
+    <!-- PECTORAL -->
+    <div class="card">
+      <div class="fig std">
+        <svg viewBox="0 0 300 330" role="img" aria-label="Antebrazo apoyado en el marco de la puerta con el codo a la altura del hombro, paso adelante">
+          <rect x="190" y="30" width="12" height="288" rx="2" fill="#CFE2E8"/>
+          <rect x="190" y="30" width="100" height="12" rx="2" fill="#CFE2E8"/>
+          <line x1="20" y1="318" x2="280" y2="318" stroke="#BFD6DE" stroke-width="3" stroke-linecap="round"/>
+          <g transform="translate(150 196) scale(.75)">
+            <g class="fr" transform="translate(4 -96) rotate(88)">
+              <use href="#uarmN"/>
+              <g transform="translate(61 0) rotate(8)"><use href="#farmN"/><use href="#handN" transform="translate(48 0)"/></g>
+            </g>
+            <g class="fr" transform="translate(4 -2) rotate(84.1)">
+              <use href="#thigh"/>
+              <g transform="translate(81 0) rotate(-13.4)"><use href="#shin"/><use href="#footF" transform="translate(81 0) rotate(109.3)"/></g>
+            </g>
+            <g class="nr" transform="translate(-2 0) rotate(109.3)">
+              <use href="#thigh"/>
+              <g transform="translate(81 0) rotate(-13.4)"><use href="#shin"/><use href="#footF" transform="translate(81 0) rotate(84.1)"/></g>
+            </g>
+            <g class="chest" style="transform-origin:0 0"><use href="#torsoS" class="nr" style="--mp:#FF6B2C"/></g>
+            <ellipse class="glow" cx="-14" cy="-84" rx="9" ry="16" fill="#FF6B2C"/>
+            <g class="nr" transform="translate(-2 -96)">
+              <use href="#uarmM"/>
+              <g transform="translate(61 0) rotate(-90)"><use href="#farmM"/><use href="#handM" transform="translate(48 0)"/></g>
+            </g>
+          </g>
+          <g font-family="Barlow, sans-serif" font-weight="700" font-size="12.5" fill="#3F5566">
+            <text x="210" y="70">marco</text>
+            <text x="210" y="86">de la puerta</text>
+            <text x="20" y="120">pecho</text>
+            <text x="20" y="136" font-weight="600">adelante</text>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name-row">
+          <div><div class="idx">ESTIRAMIENTO 4</div><div class="name">Pectoral en la puerta</div><div class="target">Pecho · hombro</div></div>
+          <div class="dose">30 S / LADO</div>
+        </div>
+        <ol class="steps">
+          <li>Antebrazo en el marco de la puerta, codo a la altura del hombro.</li>
+          <li>Paso adelante con la pierna del mismo lado y gira el torso suave hacia afuera.</li>
+          <li>Lo sientes en la parte delantera del pecho.</li>
+        </ol>
+        <div class="tip"><b>Por tus hombros adelantados.</b> Miles de brazadas al día acortan el pectoral, y eso empuja el hombro todavía más adelante. Este lo compensa.</div>
+      </div>
+    </div>
+
+    <div class="note"><b>Y para cerrar la sesión:</b> sécate bien los oídos (con 8 horas semanales en el agua, la otitis del nadador es real), come dentro de la hora siguiente — proteína más carbohidrato, lo que dejaste listo antes de salir — y <b>no te peses ese día</b>: después de 2 horas de ejercicio hay retención y el número miente. Pésate al día siguiente en ayunas.</div>
+  </section>
+
+  <!-- ============ EL TIEMPO ============ -->
+  <section class="block" id="tiempo">
+    <div class="block-head">
+      <div class="block-num">✓</div>
+      <div><h3>El tiempo</h3><div class="meta">Misma sesión · martes a viernes</div></div>
+    </div>
+    <p class="block-note">Las 2 horas de agua son lo fijo. Todo lo demás está por la rodilla (patella alta en las dos) y por el hombro, y cuesta menos de lo que parece.</p>
+
+    <table>
+      <thead><tr><th>Qué</th><th>Min</th><th>Para qué</th></tr></thead>
+      <tbody>
+        <tr><td>Ducha, gafas, botella al borde</td><td class="n">5</td><td>Higiene y aclimatarte</td></tr>
+        <tr><td>Movilidad en seco</td><td class="n">5</td><td>Hombro y columna; el balanceo de pierna (2 min) es por la rodilla</td></tr>
+        <tr><td>Natación · 3 ciclos</td><td class="n">120</td><td>Lo fijo</td></tr>
+        <tr><td>Estiramientos</td><td class="n">8</td><td>Flexor y cuádriceps (5 min) por la rodilla; pantorrilla y pectoral, el resto</td></tr>
+        <tr><td>Ducha, secar oídos, vestirte</td><td class="n">10</td><td>—</td></tr>
+        <tr class="goal"><td>Por sesión</td><td class="n">≈150</td><td>2 h 30 sin contar el trayecto</td></tr>
+      </tbody>
+    </table>
+
+    <div class="h" style="margin-top:22px">DENTRO DE LAS 2 HORAS</div>
+    <div class="cyclebar">
+      <div class="cyclerow"><span class="what">Libre (completo + suave)</span><span class="amt">45 MIN</span></div>
+      <div class="cyclerow"><span class="what">Solo patada</span><span class="amt">30 MIN</span></div>
+      <div class="cyclerow"><span class="what">Solo brazada</span><span class="amt">30 MIN</span></div>
+      <div class="cyclerow"><span class="what">Ondular</span><span class="amt">15 MIN</span></div>
+      <div class="cycletotal">Brazos trabajando: 75 min por sesión · 5 h a la semana. Por eso la regla del hombro.</div>
+    </div>
+
+    <div class="h">LA SEMANA</div>
+    <ul class="plain">
+      <li><b>Piscina:</b> 4 × 2 h 30 = 10 h, de ellas 8 h en el agua.</li>
+      <li><b>Fuerza en casa:</b> 3 × 10 min = 30 min.</li>
+      <li><b>Lo que cuesta la rodilla:</b> 7 min por sesión (balanceo + estiramientos de pierna) × 4 + los 30 de fuerza ≈ <b>1 h a la semana</b>. Es lo que deja que las otras 8 no te pasen factura en la rótula.</li>
+    </ul>
+
+    <div class="h" style="margin-top:22px">QUÉ ANOTAR AL SALIR</div>
+    <ul class="plain">
+      <li><b>Cuántas veces paraste dentro de los bloques.</b> Es tu indicador real de condición: las paradas van bajando solas semana a semana hasta que sostienes los 10 minutos seguidos.</li>
+      <li><b>Cómo acabaste el último bloque.</b> Si acabaste reventado, la sesión siguiente baja el ritmo (todo zona 2), no los minutos. Las 2 horas no se tocan; solo el dolor de hombro las acorta.</li>
+    </ul>
+    <p class="block-note" style="margin-top:10px">Eso es todo. Dos preguntas, sin contar metros.</p>
+
+    <div class="note"><b>Lo que la natación no cubre:</b> tu cuádriceps y glúteo son lo que le quita presión a la rótula, y la patada sola no los construye. Diez minutos en casa, <b>sábado, domingo y lunes</b> (los días sin piscina, para no llegar a la patada con el cuádriceps cansado) — sentadilla a la pared 3×30 s, puente de glúteo 3×12, abducción de cadera de lado 3×20. Es el seguro.</div>
+  </section>
+
+  <footer>
+    Calienta en seco, nunca estires en frío, bebe cada ciclo.<br>
+    Guía general de entrenamiento; no reemplaza la valoración de tu fisioterapeuta.
+  </footer>
+
+</div>
+
+<script>
+/* Animación del personaje: cada articulación sigue una curva de ángulo continua
+   (grados en función de la fase 0→1 del ciclo). Solo se anima lo que está en pantalla. */
+(() => {
+  const TAU = Math.PI * 2;
+  const peak = (x, e = 1.6) => Math.pow((1 + Math.cos(x)) / 2, e);
+  // curva periódica suave que pasa por poses clave [fase, ángulo]
+  const keyed = (keys) => {
+    const n = keys.length, shift = keys[n - 1][1] - keys[0][1];
+    const pts = [[keys[n - 2][0] - 1, keys[n - 2][1] - shift], ...keys, [keys[1][0] + 1, keys[1][1] + shift]];
+    return (p) => {
+      for (let i = 1; i < pts.length - 2; i++) {
+        const [t0, v0] = pts[i - 1], [t1, v1] = pts[i], [t2, v2] = pts[i + 1], [t3, v3] = pts[i + 2];
+        if (p >= t1 && p <= t2) {
+          const u = (p - t1) / (t2 - t1), h = t2 - t1;
+          const m1 = (v2 - v0) / (t2 - t0) * h, m2 = (v3 - v1) / (t3 - t1) * h;
+          return (2*u**3 - 3*u**2 + 1) * v1 + (u**3 - 2*u**2 + u) * m1 + (-2*u**3 + 3*u**2) * v2 + (u**3 - u**2) * m2;
+        }
+      }
+      return keys[0][1];
+    };
+  };
+  const C = {
+    // patada de crol: muslo, rodilla (solo flexiona), tobillo
+    kth: p => 6 + 8 * Math.sin(TAU * p),
+    kkn: p => -(3 + 14 * peak(TAU * p - (1.5 * Math.PI + 0.35))),
+    kan: p => -2 + 8 * Math.sin(TAU * p - 1.3),
+    // patada mínima de 2 tiempos
+    pth: p => 3 + 4 * Math.sin(2 * TAU * p),
+    pkn: p => -(2 + 8 * peak(2 * TAU * p - (1.5 * Math.PI + 0.35))),
+    // brazada: entrada, agarre, tirón, empuje, salida, recobro
+    pu: keyed([[0, 0], [.15, -28], [.33, -80], [.52, -150], [.62, -188], [.80, -262], [.92, -322], [1, -360]]),
+    pf: keyed([[0, 0], [.15, -62], [.33, -50], [.52, -18], [.62, -8], [.80, -118], [.92, -40], [1, 0]]),
+    ph: keyed([[0, 8], [.15, -12], [.33, -8], [.52, 6], [.62, 14], [.80, 22], [.92, 10], [1, 8]]),
+    // círculos de brazos
+    ac: p => 360 * p - 14 * Math.sin(TAU * p),
+    ae: p => 10 * (1 - Math.cos(TAU * p)) / 2,
+    // balanceo de pierna
+    lsT: p => 5 + 35 * Math.sin(TAU * p),
+    lsK: p => -(4 + 20 * (1 - Math.sin(TAU * p)) / 2),
+    // gato-camello: mitad de pecho, mitad de pelvis, cabeza
+    ccU: p => -1 - 7 * Math.cos(TAU * p),
+    ccL: p => 1 + 7 * Math.cos(TAU * p),
+    ccH: p => -2 - 16 * Math.cos(TAU * p),
+    // rotación de hombro
+    srL: p => 70 * (1 - Math.cos(TAU * p)) / 2,
+    srR: p => -70 * (1 - Math.cos(TAU * p)) / 2,
+    // ondulación: la onda viaja del pecho a los pies
+    o1: p => 3 * Math.sin(TAU * p),
+    o2: p => 7 * Math.sin(TAU * p - 0.7),
+    o3: p => 11 * Math.sin(TAU * p - 1.5),
+    o4: p => -(3 + 14 * peak(TAU * p - 2.3)),
+    o5: p => 12 * Math.sin(TAU * p - 3.1),
+  };
+  const num = (el, attr, def) => { const h = el.closest(`[${attr}]`); return h ? +h.getAttribute(attr) : def; };
+  const joints = [...document.querySelectorAll('[data-j]')].map(el => ({
+    el, svg: el.closest('svg'), f: C[el.dataset.j],
+    d: num(el, 'data-d', 1), o: num(el, 'data-o', 0),
+    t: el.dataset.t || '0 0', r: +(el.dataset.r || 0),
+    u: el.dataset.u ? ` translate(${el.dataset.u})` : '',
+  })).filter(j => j.f);
+  const labels = [...document.querySelectorAll('[data-show]')].map(el => {
+    const [a, b] = el.dataset.show.split('-').map(Number);
+    return { el, svg: el.closest('svg'), a, b, d: num(el, 'data-d', 1) };
+  });
+  const visible = new Set();
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  const phase = (s, d, o, svg) => still.matches
+    ? (((+(svg.dataset.still || 0.15)) + o) % 1)
+    : ((s / d + o) % 1 + 1) % 1;
+  function draw(now, all) {
+    const s = now / 1000;
+    for (const j of joints) {
+      if (!all && !visible.has(j.svg)) continue;
+      const a = j.r + j.f(phase(s, j.d, j.o, j.svg));
+      j.el.setAttribute('transform', `translate(${j.t}) rotate(${a.toFixed(2)})${j.u}`);
+    }
+    for (const l of labels) {
+      if (!all && !visible.has(l.svg)) continue;
+      const p = phase(s, l.d, 0, l.svg);
+      const on = l.a <= l.b ? (p >= l.a && p < l.b) : (p >= l.a || p < l.b);
+      l.el.style.opacity = on ? 1 : 0;
+    }
+  }
+  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)), { rootMargin: '80px' });
+  document.querySelectorAll('svg.rig').forEach(s => io.observe(s));
+  let raf = 0;
+  const loop = (now) => { draw(now, false); raf = requestAnimationFrame(loop); };
+  const start = () => {
+    cancelAnimationFrame(raf);
+    draw(performance.now(), true);
+    if (!still.matches) raf = requestAnimationFrame(loop);
+  };
+  still.addEventListener('change', start);
+  start();
+})();
+</script>
+</body>
+</html>
